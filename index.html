@@ -54,7 +54,7 @@
 			</section>
 		</main>
 		<script>
-			async function getJoke(display) {
+			async function getJoke(container) {
 				const url = "https://icanhazdadjoke.com/";
 				try {
 					const response = await fetch(url, {
@@ -68,18 +68,18 @@
 					}
 
 					const json = await response.text();
-					display.textContent = json;
+					container.textContent = json;
 				} catch (error) {
 					console.error(error.message);
 				}
 			}
 
-			const button = document.querySelector("button");
-			const joke = document.querySelector("#joke");
+			const buttonElement = document.querySelector("button");
+			const jokeContainer = document.querySelector("#joke");
 
-			getJoke(joke);
+			getJoke(jokeContainer);
 
-			button.addEventListener("click", () => {
+			buttonElement.addEventListener("click", () => {
 				getJoke(joke);
 			});
 		</script>
