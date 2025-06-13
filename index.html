@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tafadzwa's Dad Jokes</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			html {
+				font-family: system-ui, -apple-system, BlinkMacSystemFont,
+					"Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+					"Helvetica Neue", sans-serif;
+				font-size: 1rem;
+			}
+			h1 {
+				margin-top: 2rem;
+				text-align: center;
+			}
+			#joke {
+				padding: 2rem;
+				width: 90%;
+				max-width: 800px;
+				margin: 2rem auto;
+				background-color: rgb(245, 245, 245);
+				border-radius: 0.5rem;
+				border: 1px solid #c5c5c5;
+			}
+			section div:nth-of-type(2) {
+				text-align: center;
+			}
+			button {
+				padding: 0.5rem 1rem;
+				font-size: 1.25rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>Tafadzwa's Dad Jokes</h1>
+		</header>
+		<main>
+			<section>
+				<div>
+					<p id="joke"></p>
+				</div>
+				<div><button>Next joke</button></div>
+			</section>
+		</main>
+		<script>
+			async function getJoke(display) {
+				const url = "https://icanhazdadjoke.com/";
+				try {
+					const response = await fetch(url, {
+						headers: {
+							Accept: "application/json",
+							Accept: "text/plain",
+						},
+					});
+					if (!response.ok) {
+						throw new Error(`Response status: ${response.status}`);
+					}
+
+					const json = await response.text();
+					display.textContent = json;
+				} catch (error) {
+					console.error(error.message);
+				}
+			}
+
+			const button = document.querySelector("button");
+			const joke = document.querySelector("#joke");
+
+			getJoke(joke);
+
+			button.addEventListener("click", () => {
+				getJoke(joke);
+			});
+		</script>
+	</body>
+</html>
